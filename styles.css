@@ -1,0 +1,195 @@
+/* Mobile-first CSS design */
+:root {
+  --body-bg: #f0f0f0;
+  --text-color: #333;
+  --container-bg: white;
+  --action-btn-bg: #007bff;
+  --action-btn-hover-bg: #0056b3;
+  --action-btn-text: white;
+  --initial-num-bg: #90ee90; /* green for initial numbers */
+  --num-border: #ccc;
+  --disabled-bg: #ccc;
+  --disabled-text: #666;
+  --result-num-bg: #ffd700; /* gold for results */
+  --result-text: #000; /* black text for gold bg */
+  --calc-area-bg: #f8f8f8;
+  --calc-area-border: #ddd;
+  --op-btn-bg: #fff;
+  --op-btn-hover-bg: #f0f0f0;
+  --op-btn-border: #ccc;
+  --feedback-text: green;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--body-bg);
+  color: var(--text-color);
+  padding: 10px;
+}
+
+#game-container {
+  width: 100%;
+  max-width: 400px;
+  background-color: var(--container-bg);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+#score {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+#buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.action-btn {
+  padding: 8px 16px;
+  background-color: var(--action-btn-bg);
+  color: var(--action-btn-text);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.action-btn:hover {
+  background-color: var(--action-btn-hover-bg);
+}
+
+#numbers-area {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.number-btn {
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  background-color: var(--initial-num-bg);
+  border: 1px solid var(--num-border);
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.number-btn.disabled {
+  background-color: var(--disabled-bg);
+  color: var(--disabled-text);
+  cursor: not-allowed;
+}
+
+.number-btn.result {
+  background-color: var(--result-num-bg);
+  color: var(--result-text);
+}
+
+#calculation-area {
+  background-color: var(--calc-area-bg);
+  border: 1px solid var(--calc-area-border);
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  text-align: center;
+  min-height: 40px;
+  word-wrap: break-word;
+}
+
+#operations-area {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.op-btn {
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  background-color: var(--op-btn-bg);
+  border: 1px solid var(--op-btn-border);
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.op-btn:hover {
+  background-color: var(--op-btn-hover-bg);
+}
+
+#feedback {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+  color: var(--feedback-text);
+}
+
+/* Media queries for larger screens */
+@media (min-width: 600px) {
+  #game-container {
+    max-width: 600px;
+    padding: 30px;
+  }
+
+  #title {
+    font-size: 32px;
+  }
+
+  #score {
+    font-size: 18px;
+  }
+
+  .action-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+
+  .number-btn {
+    width: 80px;
+    height: 80px;
+    font-size: 32px;
+  }
+
+  .op-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 32px;
+  }
+
+  #calculation-area {
+    font-size: 24px;
+    padding: 15px;
+  }
+}

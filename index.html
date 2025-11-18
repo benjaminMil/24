@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Make 24!</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="game-container">
+      <div id="header">
+        <div id="title">Make 24!</div>
+        <div id="score">Score: 0</div>
+        <div id="buttons">
+          <button class="action-btn" id="new-puzzle">New Puzzle</button>
+          <button class="action-btn" id="undo">Undo</button>
+          <button class="action-btn" id="hint">Hint</button>
+        </div>
+      </div>
+      <div id="numbers-area"></div>
+      <div id="calculation-area"></div>
+      <div id="operations-area">
+        <button class="op-btn" data-op="+">+</button>
+        <button class="op-btn" data-op="-">-</button>
+        <button class="op-btn" data-op="×">×</button>
+        <button class="op-btn" data-op="÷">÷</button>
+      </div>
+      <div id="feedback"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
