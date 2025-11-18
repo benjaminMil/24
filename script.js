@@ -221,7 +221,7 @@ function checkWin() {
   if (numbers.length === 1) {
     const final = numbers[0].value;
     if (Math.abs(final - 24) < 1e-6) {
-      updateFeedback("You made 24! 🎉");
+      updateFeedback("Incredible!");
       score++;
       updateScore();
       setTimeout(initGame, 2000); // Auto new
