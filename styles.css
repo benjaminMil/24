@@ -1,25 +1,29 @@
-/* Mobile-first CSS design */
 :root {
-  --body-bg: #f0f0f0;
-  --text-color: #333;
-  --container-bg: white;
-  --action-btn-bg: #007bff;
-  --action-btn-hover-bg: #0056b3;
-  --action-btn-text: white;
-  --initial-num-bg: #90ee90; /* green for initial numbers */
-  --num-border: #ccc;
-  --disabled-bg: #ccc;
-  --disabled-text: #666;
-  --result-num-bg: #ffd700; /* gold for results */
-  --result-text: #000; /* black text for gold bg */
-  --calc-area-bg: #f8f8f8;
-  --calc-area-border: #ddd;
-  --op-btn-bg: #fff;
-  --op-btn-hover-bg: #f0f0f0;
-  --op-btn-border: #ccc;
-  --feedback-text: green;
+  /* --- Theme Palette --- */
+  --bg-main: #141414;
+
+  --text-primary: #f6f6f6;
+  --text-secondary: #c5c5c5;
+  --text-disabled: rgba(242, 248, 241, 0.5);
+
+  /* --- Component Colors --- */
+  /* Green (Action: New Game, Numbers) */
+  --c-success: #528c4f;
+  --c-success-dark: #42703f;
+
+  /* Grey (Action: Undo, Operators) */
+  --c-neutral: #818384;
+  --c-neutral-dark: #5f6162;
+
+  /* Gold (Action: Hint, Result) */
+  --c-accent: #b59e39;
+  --c-accent-dark: #917e2e;
+
+  /* State Colors */
+  --c-disabled: #3a3a3a;
 }
 
+/* --- Reset & Base --- */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -32,164 +36,156 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: var(--body-bg);
-  color: var(--text-color);
-  padding: 10px;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  padding: 0.625rem;
 }
 
 #game-container {
   width: 100%;
   max-width: 400px;
-  background-color: var(--container-bg);
+
+  background-color: var(--bg-main);
   border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 1.25rem;
 }
 
+/* --- Layout --- */
 #header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
-#title {
-  font-size: 24px;
-  margin-bottom: 10px;
+.logo {
+  height: 3rem;
+  margin-bottom: 0.85rem;
 }
 
 #score {
-  font-size: 16px;
-  margin-bottom: 10px;
+  margin-bottom: 0.85rem;
 }
 
-#buttons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.action-btn {
-  padding: 8px 16px;
-  background-color: var(--action-btn-bg);
-  color: var(--action-btn-text);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.action-btn:hover {
-  background-color: var(--action-btn-hover-bg);
-}
-
-#numbers-area {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.number-btn {
-  width: 60px;
-  height: 60px;
-  font-size: 24px;
-  background-color: var(--initial-num-bg);
-  border: 1px solid var(--num-border);
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.number-btn.disabled {
-  background-color: var(--disabled-bg);
-  color: var(--disabled-text);
-  cursor: not-allowed;
-}
-
-.number-btn.result {
-  background-color: var(--result-num-bg);
-  color: var(--result-text);
-}
-
-#calculation-area {
-  background-color: var(--calc-area-bg);
-  border: 1px solid var(--calc-area-border);
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 20px;
-  font-size: 20px;
-  text-align: center;
-  min-height: 40px;
-  word-wrap: break-word;
-}
-
+#buttons,
+#numbers-area,
 #operations-area {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 0.625rem;
+  margin-bottom: 1.25rem;
 }
 
+#numbers-area {
+  flex-wrap: wrap;
+}
+
+/* --- Button Components --- */
+/* Shared styles for all buttons */
+.action-btn,
+.number-btn,
 .op-btn {
-  width: 50px;
-  height: 50px;
-  font-size: 24px;
-  background-color: var(--op-btn-bg);
-  border: 1px solid var(--op-btn-border);
+  border: none;
   border-radius: 5px;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: var(--text-primary);
+  transition: background-color 0.2s;
+}
+
+/* 1. Top Action Buttons */
+.action-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  background-color: var(--c-success);
+}
+
+.action-btn:hover {
+  background-color: var(--c-success-dark);
+  color: var(--text-secondary);
+}
+
+/* Undo Button (Specific Override) */
+.action-btn:nth-child(2) {
+  background-color: var(--c-neutral);
+}
+.action-btn:nth-child(2):hover {
+  background-color: var(--c-neutral-dark);
+}
+
+/* Hint Button (Specific Override) */
+.action-btn:nth-child(3) {
+  background-color: var(--c-accent);
+}
+.action-btn:nth-child(3):hover {
+  background-color: var(--c-accent-dark);
+}
+
+/* 2. Number Buttons */
+.number-btn {
+  width: 3.75rem;
+  height: 3.75rem;
+  font-size: 1.5rem;
+  background-color: var(--c-success);
+}
+
+.number-btn:hover {
+  background-color: var(--c-success-dark);
+  color: var(--text-secondary);
+}
+
+.number-btn.result {
+  background-color: var(--c-accent);
+}
+
+.number-btn.result:hover {
+  background-color: var(--c-accent-dark);
+}
+
+/* 3. Operator Buttons */
+.op-btn {
+  width: 3.125rem;
+  height: 3.125rem;
+  font-size: 1.5rem;
+  background-color: var(--c-neutral);
 }
 
 .op-btn:hover {
-  background-color: var(--op-btn-hover-bg);
+  background-color: var(--c-neutral-dark);
+  color: var(--text-secondary);
 }
 
+/* --- Disabled State --- */
+/* Applies to both Number and Operator buttons */
+.number-btn.disabled,
+.op-btn.disabled {
+  background-color: var(--c-disabled);
+  color: var(--text-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* --- Calculation Display --- */
+#calculation-area {
+  background-color: var(--bg-main);
+  border: 1px solid var(--c-neutral);
+  border-radius: 5px;
+  padding: 0.75rem 1rem;
+  margin: 0 auto 1.5rem;
+  height: 5rem;
+  font-size: 2.5rem;
+  line-height: 1.35;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* --- Feedback --- */
 #feedback {
   text-align: center;
-  font-size: 18px;
-  margin-top: 20px;
-  color: var(--feedback-text);
-}
-
-/* Media queries for larger screens */
-@media (min-width: 600px) {
-  #game-container {
-    max-width: 600px;
-    padding: 30px;
-  }
-
-  #title {
-    font-size: 32px;
-  }
-
-  #score {
-    font-size: 18px;
-  }
-
-  .action-btn {
-    padding: 10px 20px;
-    font-size: 16px;
-  }
-
-  .number-btn {
-    width: 80px;
-    height: 80px;
-    font-size: 32px;
-  }
-
-  .op-btn {
-    width: 60px;
-    height: 60px;
-    font-size: 32px;
-  }
-
-  #calculation-area {
-    font-size: 24px;
-    padding: 15px;
-  }
+  font-size: 1.125rem;
+  margin-top: 1.25rem;
+  /* Fixed: Removed undefined --feedback-text, used text-primary */
+  color: var(--text-primary);
+  min-height: 1.5em;
 }

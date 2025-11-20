@@ -3,30 +3,103 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Make 24!</title>
+
+    <title>Make 24! - The Classic Math Puzzle Game</title>
+    <meta
+      name="description"
+      content="Play the classic 24 game online. Challenge your brain by combining four numbers using arithmetic to equal 24. A free, fun mental math puzzle."
+    />
+    <meta
+      name="keywords"
+      content="24 game, math puzzle, make 24, mental math, arithmetic game, brain teaser, math practice"
+    />
+    <meta name="author" content="Benjamin Mil" />
+    <meta name="robots" content="index, follow" />
+
+    <meta property="og:url" content="https://benjaminmil.github.io/24/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Make 24! - Can you solve the puzzle?" />
+    <meta
+      property="og:description"
+      content="Test your mental math skills. Combine the 4 numbers to reach exactly 24. No decimals, just pure logic."
+    />
+    <meta
+      property="og:image"
+      content="https://benjaminmil.github.io/24/og-image.png"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Make 24! Math Game" />
+    <meta
+      name="twitter:description"
+      content="A simple, elegant version of the classic 24 math puzzle. Play now in your browser."
+    />
+    <meta
+      name="twitter:image"
+      content="https://benjaminmil.github.io/24/og-image.png"
+    />
+
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="theme-color" content="#141414" />
+
     <link rel="stylesheet" href="styles.css" />
+
+    <style>
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    </style>
   </head>
   <body>
-    <div id="game-container">
-      <div id="header">
-        <div id="title">Make 24!</div>
-        <div id="score">Score: 0</div>
-        <div id="buttons">
-          <button class="action-btn" id="new-puzzle">New Puzzle</button>
-          <button class="action-btn" id="undo">Undo</button>
-          <button class="action-btn" id="hint">Hint</button>
-        </div>
+    <main id="game-container">
+      <header id="header">
+        <h1 class="sr-only">Make 24! Math Puzzle Game</h1>
+        <img
+          class="logo"
+          src="./make24Logo.svg"
+          alt="Make 24 Game Logo"
+          width="150"
+          height="50"
+        />
+        <div id="score"></div>
+      </header>
+
+      <div id="buttons">
+        <button
+          class="action-btn"
+          id="new-puzzle"
+          aria-label="Start a new puzzle"
+        >
+          New Puzzle
+        </button>
+        <button class="action-btn" id="undo" aria-label="Undo last move">
+          Undo
+        </button>
+        <button class="action-btn" id="hint" aria-label="Get a hint">
+          Hint
+        </button>
       </div>
+
+      <div id="calculation-area" aria-live="polite"></div>
       <div id="numbers-area"></div>
-      <div id="calculation-area"></div>
+
       <div id="operations-area">
-        <button class="op-btn" data-op="+">+</button>
-        <button class="op-btn" data-op="-">-</button>
-        <button class="op-btn" data-op="×">×</button>
-        <button class="op-btn" data-op="÷">÷</button>
+        <button class="op-btn" data-op="+" aria-label="Add">+</button>
+        <button class="op-btn" data-op="-" aria-label="Subtract">-</button>
+        <button class="op-btn" data-op="×" aria-label="Multiply">×</button>
+        <button class="op-btn" data-op="÷" aria-label="Divide">÷</button>
       </div>
-      <div id="feedback"></div>
-    </div>
+
+      <div id="feedback" aria-live="assertive"></div>
+    </main>
 
     <script src="script.js"></script>
   </body>
