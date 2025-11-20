@@ -62,15 +62,43 @@
     <main id="game-container">
       <header id="header">
         <h1 class="sr-only">Make 24! Math Puzzle Game</h1>
-        <img
-          class="logo"
-          src="./make24Logo.svg"
-          alt="Make 24 Game Logo"
-          width="150"
-          height="50"
-        />
-        <div id="score"></div>
+
+        <button id="rules-btn" class="logo-btn" aria-label="How to play">
+          <img
+            class="logo"
+            src="./make24Logo.svg"
+            alt="Make 24 Game Logo"
+            width="150"
+            height="50"
+          />
+        </button>
+
+        <div id="score">Score: 0</div>
       </header>
+
+      <div id="rules-modal" class="modal hidden" aria-hidden="true">
+        <div class="modal-content">
+          <h2>How to Play</h2>
+          <ul class="rules-list">
+            <li>
+              Use all 4 numbers to equal exactly
+              <strong>24</strong>.
+            </li>
+            <li>You <strong>must</strong> use each number once.</li>
+            <li>Click Number > Operation > Number</li>
+            <li>
+              Operations happen automatically and will return your new Number
+            </li>
+          </ul>
+          <p class="example">
+            Example: 3, 8, 3, 8 <br />
+            9 + 7 -> 16 <br />
+            16 × 3 -> 48 <br />
+            48 ÷ 2 -> 24
+          </p>
+          <button id="close-modal" class="action-btn">Got it!</button>
+        </div>
+      </div>
 
       <div id="buttons">
         <button
