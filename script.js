@@ -66,7 +66,6 @@ function startNewGame() {
       return;
     }
     attempts++;
-    console.log(attempts);
   }
 
   // Fallback safe puzzle
