@@ -17,7 +17,7 @@ const state = {
   expression: [],
   history: [],
   nextId: 0,
-  isProcessing: false, // New flag to prevent clicks during the 1s delay
+  isProcessing: false, // Prevents clicks during 1s delay
 };
 
 // --- Initialization ---
@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function setupEventListeners() {
+  // Game Interactions
   document
     .getElementById("numbers-area")
     .addEventListener("click", handleNumberClick);
@@ -38,6 +39,42 @@ function setupEventListeners() {
   document.getElementById("new-puzzle").addEventListener("click", startNewGame);
   document.getElementById("undo").addEventListener("click", handleUndo);
   document.getElementById("hint").addEventListener("click", showHint);
+
+  // --- Modal Logic (Rules) ---
+  const modal = document.getElementById("rules-modal");
+  const rulesBtn = document.getElementById("rules-btn");
+  const closeBtn = document.getElementById("close-modal");
+
+  // Helper to close modal and return focus
+  const closeModal = () => {
+    modal.classList.add("hidden");
+    modal.setAttribute("aria-hidden", "true");
+    rulesBtn.focus(); // <--- THIS FIXES THE ARIA ERROR
+  };
+
+  // Open Modal
+  rulesBtn.addEventListener("click", () => {
+    modal.classList.remove("hidden");
+    modal.setAttribute("aria-hidden", "false");
+    closeBtn.focus(); // Optional: Move focus into the modal when opening
+  });
+
+  // Close Modal (Button)
+  closeBtn.addEventListener("click", closeModal);
+
+  // Close Modal (Click Outside)
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  // Close Modal (Escape Key)
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+      closeModal();
+    }
+  });
 }
 
 // --- Core Game Logic ---
@@ -80,7 +117,6 @@ function createNumberObj(value, isResult = false) {
 // --- Interaction Handlers ---
 
 function handleNumberClick(e) {
-  // Prevent clicks if we are in the middle of the 1s calculation delay
   if (state.isProcessing) return;
 
   const btn = e.target.closest(".number-btn");
@@ -108,7 +144,6 @@ function handleOpClick(e) {
   if (state.isProcessing) return;
 
   const btn = e.target.closest(".op-btn");
-  // Ignore if disabled (though HTML disabled attribute should stop this too)
   if (!btn || btn.disabled) return;
 
   const op = btn.dataset.op;
@@ -117,7 +152,6 @@ function handleOpClick(e) {
   if (state.expression.length === 1) {
     state.expression.push(op);
     updateExpressionDisplay();
-    // Change 1: Disable all operators immediately after selection
     setOperatorButtonsDisabled(true);
   } else {
     updateFeedback("Select a number first.");
@@ -137,14 +171,13 @@ function performCalculation() {
 
   // Lock interface
   state.isProcessing = true;
-  updateFeedback("");
 
-  // Show full equation immediately: "3 + 5 = 8"
+  // Show full equation immediately
   const displayRes = formatResult(resultVal);
   const area = document.getElementById("calculation-area");
   area.textContent = `${leftObj.value} ${op} ${rightObj.value} = ${displayRes}`;
 
-  // Change 2: 1 second delay before updating state/UI
+  // 1 second delay before updating state/UI
   setTimeout(() => {
     const newNum = createNumberObj(displayRes, true);
 
@@ -166,9 +199,9 @@ function performCalculation() {
 
     clearExpressionDisplay();
     renderNumbers();
-    setOperatorButtonsDisabled(false); // Re-enable operators
+    setOperatorButtonsDisabled(false);
     checkWinCondition();
-  }, 750);
+  }, 1000);
 }
 
 function handleUndo() {
@@ -193,10 +226,10 @@ function handleUndo() {
 
   renderNumbers();
   updateFeedback("");
-  setOperatorButtonsDisabled(false); // Ensure operators are active
+  setOperatorButtonsDisabled(false);
 }
 
-// --- Solver ---
+// --- Solver (Strict Integers Only) ---
 function findSolution(currentNums) {
   if (currentNums.length === 1) {
     return Math.abs(currentNums[0] - TARGET) < EPSILON ? true : null;
@@ -212,8 +245,11 @@ function findSolution(currentNums) {
 
       for (const opKey in OPS) {
         const op = OPS[opKey];
+        // Commutative Optimization
         if ((opKey === "+" || opKey === "×") && a < b) continue;
+        // No Negatives
         if (opKey === "-" && a < b) continue;
+        // No Fractions
         if (opKey === "÷") {
           if (b === 0 || a % b !== 0) continue;
         }
@@ -264,12 +300,10 @@ function updateExpressionDisplay() {
     return;
   }
 
-  const [left, op, right] = state.expression;
+  const [left, op] = state.expression;
   let text = `${left.value}`;
 
   if (op) text += ` ${op}`;
-  // Note: The "= result" part is now handled in performCalculation
-
   area.textContent = text;
 }
 
@@ -284,7 +318,7 @@ function resetExpressionButtons() {
   state.expression = [];
   clearExpressionDisplay();
   updateFeedback("");
-  setOperatorButtonsDisabled(false); // Re-enable operators on reset
+  setOperatorButtonsDisabled(false);
 }
 
 function setOperatorButtonsDisabled(isDisabled) {
