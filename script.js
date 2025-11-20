@@ -137,6 +137,7 @@ function performCalculation() {
 
   // Lock interface
   state.isProcessing = true;
+  updateFeedback("");
 
   // Show full equation immediately: "3 + 5 = 8"
   const displayRes = formatResult(resultVal);
