@@ -309,6 +309,7 @@ function updateExpressionDisplay() {
 
 function clearExpressionDisplay() {
   document.getElementById("calculation-area").textContent = "";
+  updateFeedback("");
 }
 
 function resetExpressionButtons() {
